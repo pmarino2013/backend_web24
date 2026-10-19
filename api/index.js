@@ -19,6 +19,6 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/product", productRoutes);
 
 await dbConnect();
-app.listen(PORT, () => console.log(`Server online, port: ${PORT}`));
+// app.listen(PORT, () => console.log(`Server online, port: ${PORT}`));
 
 export default app;
