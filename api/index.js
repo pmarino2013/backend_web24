@@ -18,7 +18,20 @@ app.use("/api/auth", authRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/product", productRoutes);
 
-await dbConnect();
+// await dbConnect();
+dbConnect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server online en puerto: ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error(
+      "No se pudo iniciar el servidor por error en la base de datos:",
+      err,
+    );
+    process.exit(1);
+  });
 // app.listen(PORT, () => console.log(`Server online, port: ${PORT}`));
 
 export default app;
