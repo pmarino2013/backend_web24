@@ -3,7 +3,7 @@ import {
   sendUpdatePassword,
 } from "../config/nodemailer.js";
 import { generateToken } from "../utils/jwt.js";
-import User from "../models/user.js";
+import User from "../models/User.js";
 
 const getAuth = async (req, res) => {
   const users = await User.find();
