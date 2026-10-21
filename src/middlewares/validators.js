@@ -1,5 +1,5 @@
 import { validationResult, check } from "express-validator";
-import User from "../models/user.js";
+import User from "../models/User.js";
 import Producto from "../models/Product.js";
 
 //armar una función que maneje el resultado de las validaciones
