@@ -1,5 +1,6 @@
 import { validationResult, check } from "express-validator";
 import User from "../models/user.js";
+import Producto from "../models/Product.js";
 
 //armar una función que maneje el resultado de las validaciones
 export const handleValidationErrors = (req, res, next) => {
@@ -91,3 +92,29 @@ export const verifyEmailValidation = () => [
 
   handleValidationErrors,
 ];
+
+//validar rol admin-------------------------------------
+export const validarRolAdmin = (req, res, next) => {
+  const rol = req.user.role;
+
+  if (rol !== "admin") {
+    return res.status(401).json({
+      ok: false,
+      message: "No tiene permisos para realizar esta acción",
+    });
+  }
+  next();
+};
+
+//validar producto por id
+export const validarIdProducto = async (id) => {
+  const productoPorId = await Producto.findById(id);
+
+  if (!productoPorId) {
+    throw new Error("No existe el producto");
+  }
+
+  if (!productoPorId.disponible) {
+    throw new Error("El producto no está disponible");
+  }
+};

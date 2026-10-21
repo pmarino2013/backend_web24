@@ -7,7 +7,11 @@ import {
   obtenerProductos,
   borrarProducto,
 } from "../controllers/product.controller.js";
-import { handleValidationErrors } from "../middlewares/validators.js";
+import {
+  handleValidationErrors,
+  validarIdProducto,
+  validarRolAdmin,
+} from "../middlewares/validators.js";
 
 const router = Router();
 
@@ -17,6 +21,7 @@ router.post(
   "/",
   [
     authenticate,
+    validarRolAdmin,
     check("nombre", "El nombre es obligatorio").notEmpty(),
     check("categoria")
       .notEmpty()
@@ -33,6 +38,7 @@ router.put(
   "/:id",
   [
     authenticate,
+    validarRolAdmin,
     check("id", "No es un id válido").isMongoId(),
     // check("id").custom(validarIdProducto),
     handleValidationErrors,
@@ -43,8 +49,9 @@ router.delete(
   "/:id",
   [
     authenticate,
+    validarRolAdmin,
     check("id", "No es un id válido").isMongoId(),
-    // check("id").custom(validarIdProducto),
+    check("id").custom(validarIdProducto),
     handleValidationErrors,
   ],
   borrarProducto,

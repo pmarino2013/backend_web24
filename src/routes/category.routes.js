@@ -7,7 +7,10 @@ import {
   traerCategorias,
 } from "../controllers/category.controller.js";
 import { authenticate } from "../middlewares/auth.js";
-import { handleValidationErrors } from "../middlewares/validators.js";
+import {
+  handleValidationErrors,
+  validarRolAdmin,
+} from "../middlewares/validators.js";
 
 const router = Router();
 
@@ -18,6 +21,7 @@ router.post(
   [
     authenticate,
     //validación del admin
+    validarRolAdmin,
     check("nombre", "El nombre es obligatorio").notEmpty(),
     handleValidationErrors,
   ],
@@ -27,6 +31,7 @@ router.put(
   "/:id",
   [
     authenticate,
+    validarRolAdmin,
     check("id", "El id es requerido y debe ser válido").isMongoId(),
     // check("id").custom(existeCategoriaPorId),
     check("nombre", "El nombre no puede estar vacio").notEmpty(),
@@ -38,6 +43,7 @@ router.delete(
   "/:id",
   [
     authenticate,
+    validarRolAdmin,
     check("id", "El id es requerido y debe ser válido").isMongoId(),
     // check("id").custom(existeCategoriaPorId),
     handleValidationErrors,
