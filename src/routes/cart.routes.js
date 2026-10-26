@@ -31,7 +31,7 @@ router.put(
   "/:productoId",
   [
     authenticate,
-    check("poductoId", "Debe enviar el id").notEmpty(),
+    // check("poductoId", "Debe enviar el id").notEmpty(),
     check("productoId", "Deber ser un id válido").isMongoId(),
     handleValidationErrors,
   ],

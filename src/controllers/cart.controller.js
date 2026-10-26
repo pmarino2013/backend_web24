@@ -7,6 +7,7 @@ const traerItems = async (req, res) => {
     const cart = await Cart.findOne({ usuario: req.user._id }).populate(
       "items.producto",
     );
+    console.log(cart.items.length)
     res.status(200).json(cart || { items: [], total: 0 });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -88,6 +89,7 @@ const borrarItem = async (req, res) => {
 const actualizarCantidad = async (req, res) => {
   try {
     const { productoId } = req.params;
+    console.log(productoId)
     const { cantidad } = req.body;
 
     if (!cantidad || cantidad < 1) {

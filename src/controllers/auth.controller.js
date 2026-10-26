@@ -308,6 +308,8 @@ const resendCodeVerificationMail = async (req, res) => {
   // Generar el codigo de verificación
   const verificationCode = user.generateVerificationCode();
 
+  await user.save()
+
   try {
     await sendVerificationEmail(user.email, user.username, verificationCode);
     return res.status(200).json({
