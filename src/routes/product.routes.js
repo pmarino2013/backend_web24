@@ -23,6 +23,7 @@ router.post(
     authenticate,
     validarRolAdmin,
     check("nombre", "El nombre es obligatorio").notEmpty(),
+    check("precio").isNumeric().withMessage("El precio es un valor numérico"),
     check("categoria")
       .notEmpty()
       .withMessage("La categoría es obligatoria")
